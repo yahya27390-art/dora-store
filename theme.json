@@ -1,0 +1,106 @@
+{
+  "name": "Green Arrow Pro",
+  "version": "1.0.0",
+  "author": "Yahya Basha",
+  "description": "قالب تجارة إلكترونية فائق السرعة ومخصص لرفع معدل التحويل ومبيعات قطع الغيار والمتاجر المتخصصة",
+  "support_url": "https://greenarrowads.com",
+  "preview_url": "https://yahya-basha.github.io/green-arrow",
+  "screens": {
+    "desktop": "assets/images/preview-desktop.png",
+    "mobile": "assets/images/preview-mobile.png"
+  },
+  "settings": [
+    {
+      "name": "brand_colors",
+      "type": "group",
+      "label": "ألوان وهوية المتجر",
+      "fields": [
+        {
+          "id": "color_primary",
+          "type": "color",
+          "label": "اللون الأساسي (Primary Color)",
+          "default": "#0B192C",
+          "format": "hex"
+        },
+        {
+          "id": "color_secondary",
+          "type": "color",
+          "label": "اللون الثانوي (Secondary / Accent)",
+          "default": "#1E3E62",
+          "format": "hex"
+        },
+        {
+          "id": "color_silver",
+          "type": "color",
+          "label": "اللون الفضي / المعدني",
+          "default": "#94A3B8",
+          "format": "hex"
+        },
+        {
+          "id": "color_gray",
+          "type": "color",
+          "label": "لون الخلفيات والرصاصي",
+          "default": "#F1F5F9",
+          "format": "hex"
+        },
+        {
+          "id": "color_btn_text",
+          "type": "color",
+          "label": "لون نصوص الأزرار",
+          "default": "#FFFFFF",
+          "format": "hex"
+        }
+      ]
+    },
+    {
+      "name": "typography",
+      "type": "group",
+      "label": "الخطوط والنصوص",
+      "fields": [
+        {
+          "id": "font_family",
+          "type": "select",
+          "label": "نوع الخط العربي",
+          "default": "cairo",
+          "options": [
+            { "label": "خط كايرو (Cairo)", "value": "cairo" },
+            { "label": "خط المراعي (Almarai)", "value": "almarai" },
+            { "label": "خط تجوال (Tajawal)", "value": "tajawal" },
+            { "label": "خط دين (DIN Next)", "value": "din" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "store_features",
+      "type": "group",
+      "label": "ميزات بطاقة المنتج وتجربة الشراء",
+      "fields": [
+        {
+          "id": "show_installments",
+          "type": "checkbox",
+          "label": "عرض حاسبة أقساط تابي وتمارا",
+          "default": true
+        },
+        {
+          "id": "show_oem_number",
+          "type": "checkbox",
+          "label": "إظهار رقم القطعة الأصلي (OEM Part Number)",
+          "default": true
+        },
+        {
+          "id": "enable_quick_buy",
+          "type": "checkbox",
+          "label": "تفعيل زر الشراء السريع المباشر",
+          "default": true
+        },
+        {
+          "id": "free_shipping_limit",
+          "type": "number",
+          "label": "حد الشحن المجاني (بالريال السعودي)",
+          "default": 300
+        }
+      ]
+    }
+  ]
+}
