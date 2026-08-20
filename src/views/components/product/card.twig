@@ -1,0 +1,45 @@
+{# Salla Product Card Component #}
+<div class="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative">
+  
+  {# Product Image & Badges #}
+  <div class="relative h-48 bg-theme-gray rounded-xl overflow-hidden mb-3 flex items-center justify-center">
+    <a href="{{ product.url }}" class="block w-full h-full flex items-center justify-center">
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" class="max-h-full object-contain group-hover:scale-105 transition duration-300">
+    </a>
+    
+    {% if product.promotion_title %}
+      <span class="absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-theme-primary text-white shadow-sm">
+        {{ product.promotion_title }}
+      </span>
+    {% endif %}
+  </div>
+
+  {# Details #}
+  <div class="space-y-1.5 flex-1">
+    <div class="flex items-center justify-between text-[11px] text-gray-400">
+      <span class="font-bold text-theme-secondary">{{ product.category.name }}</span>
+      {% if theme.settings.show_oem_number and product.sku %}
+        <span class="font-mono text-gray-500">OEM: {{ product.sku }}</span>
+      {% endif %}
+    </div>
+
+    <h3 class="font-bold text-xs sm:text-sm text-gray-900 line-clamp-2 hover:text-theme-primary transition">
+      <a href="{{ product.url }}">{{ product.name }}</a>
+    </h3>
+  </div>
+
+  {# Price & Action #}
+  <div class="mt-4 pt-3 border-t border-gray-100 space-y-2.5">
+    <div class="flex items-baseline justify-between">
+      <span class="text-base font-black text-theme-primary">{{ product.price|money }}</span>
+      {% if product.is_on_sale %}
+        <span class="text-xs text-gray-400 line-through">{{ product.regular_price|money }}</span>
+      {% endif %}
+    </div>
+
+    {# Salla Add To Cart Native Button #}
+    <salla-add-product-button product-id="{{ product.id }}" class="w-full btn-primary py-2.5 rounded-xl text-xs font-bold shadow-sm">
+    </salla-add-product-button>
+  </div>
+
+</div>
