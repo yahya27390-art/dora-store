@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>درة السيارة | قطع غيار هيونداي وكيا والزيوت الأصلية</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b',
+              accent: '#f59e0b',
+              dark: '#0f172a'
+            }
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Cairo', sans-serif; }
+    .badge-tabby { background-color: #3ef0c0; color: #000; }
+    .badge-tamara { background-color: #ffaa88; color: #222; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-brand-900 text-white text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
+    <span class="inline-block bg-brand-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">عروض حصرية</span>
+    <span>شحن مجاني لجميع مناطق المملكة للطلبات فوق 300 ريال | خيارات تقسيط فورية مع تابي وتمارا</span>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-sm border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+        
+        <!-- Logo -->
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white text-xl font-black shadow-md">
+            <i class="fa-solid fa-car-side"></i>
+          </div>
+          <div>
+            <a href="#" class="text-xl font-black text-brand-900 tracking-tight block leading-none">درة السيارة</a>
+            <span class="text-[10px] text-gray-500 font-semibold">قطع غيار أصلية هيونداي & كيا</span>
+          </div>
+        </div>
+
+        <!-- Search Bar (Desktop) -->
+        <div class="hidden md:flex flex-1 max-w-lg mx-4">
+          <div class="relative w-full">
+            <input type="text" id="searchInput" oninput="filterProducts()" placeholder="ابحث برقم القطعة (OEM)، الاسم، أو الموديل (مثال: فلتر، إلنترا، 5W-30)..." 
+              class="w-full bg-gray-100 border border-gray-200 text-gray-800 text-sm rounded-full pr-11 pl-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition-all">
+            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-3">
+          <!-- WhatsApp Contact Button -->
+          <a href="https://wa.me/966500000000" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-xs font-bold px-3.5 py-2 rounded-full border border-emerald-200 transition">
+            <i class="fa-brands fa-whatsapp text-sm text-emerald-600"></i>
+            <span>طلب مساعدة فورية</span>
+          </a>
+
+          <!-- Cart Button -->
+          <button onclick="toggleCartDrawer(true)" class="relative p-2.5 text-gray-700 hover:text-brand-600 hover:bg-gray-100 rounded-full transition flex items-center">
+            <i class="fa-solid fa-cart-shopping text-xl"></i>
+            <span id="cartCountBadge" class="absolute -top-1 -left-1 bg-brand-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Search Bar -->
+      <div class="pb-3 md:hidden">
+        <div class="relative w-full">
+          <input type="text" id="mobileSearchInput" oninput="syncAndFilter(this.value)" placeholder="ابحث عن قطعة غيار، زيت محرك، أو رقم القطعة..." 
+            class="w-full bg-gray-100 border border-gray-200 text-gray-800 text-sm rounded-full pr-10 pl-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white">
+          <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-gray-400">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-l from-brand-900 via-slate-900 to-brand-900 text-white py-8 sm:py-12 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-8 text-center lg:text-right space-y-4">
+          <div class="inline-flex items-center gap-2 bg-brand-500/20 text-brand-400 border border-brand-500/30 px-3 py-1 rounded-full text-xs font-bold">
+            <i class="fa-solid fa-shield-halved"></i> وكيل معتمد للزيوت وقطع الغيار الأصلية
+          </div>
+          <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-white">
+            قطع غيار سياراتك <span class="text-brand-500">الأصلية والمضمونة</span> في مكان واحد
+          </h1>
+          <p class="text-gray-300 text-sm sm:text-base max-w-2xl">
+            نوفر لكم كافة قطع غيار هيونداي وكيا، زيوت هيونداي إكستير (Hyundai XTeer)، الفلاتر، المساعدات، والأقمشة بأفضل الأسعار مع ضمان الوكالة والتوصيل السريع لجميع مدن المملكة.
+          </p>
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+            <a href="#products-section" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-2.5 rounded-full text-sm shadow-lg shadow-brand-500/30 transition flex items-center gap-2">
+              <i class="fa-solid fa-cubes"></i> تصفح المنتجات
+            </a>
+            <div class="flex items-center gap-2 text-xs text-gray-300 font-semibold bg-white/10 px-4 py-2.5 rounded-full border border-white/10">
+              <i class="fa-solid fa-truck-fast text-brand-400"></i> شحن سريع سمسا وأرامكس
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Benefits Box -->
+        <div class="lg:col-span-4 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 space-y-3.5 text-xs text-gray-200">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center text-sm font-bold flex-shrink-0">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-sm">قطع أصلية 100%</h4>
+              <p class="text-gray-400">مطابقة للمواصفات السعودية مع رقم الهيكل OEM</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold flex-shrink-0">
+              <i class="fa-solid fa-credit-card"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-sm">تقسيط تابي & تمارا</h4>
+              <p class="text-gray-400">قسّم فاتورتك على 4 دفعات بدون أي فوائد</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold flex-shrink-0">
+              <i class="fa-solid fa-box-open"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-sm">استبدال واسترجاع سهل</h4>
+              <p class="text-gray-400">سياسة استرجاع مرنة تضمن حق العميل بالكامل</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filter Bar -->
+  <section class="bg-white border-b border-gray-200 py-3 sticky top-16 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1" id="categoryTabs">
+        <button onclick="setCategory('all')" class="category-btn active px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-brand-600 text-white shadow-sm" data-category="all">
+          الكل (جميع المنتجات)
+        </button>
+        <button onclick="setCategory('oils')" class="category-btn px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="oils">
+          <i class="fa-solid fa-oil-can ml-1"></i> زيوت المحركات XTeer
+        </button>
+        <button onclick="setCategory('filters')" class="category-btn px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="filters">
+          <i class="fa-solid fa-filter ml-1"></i> الفلاتر (زيت / هواء / مكيف)
+        </button>
+        <button onclick="setCategory('brakes')" class="category-btn px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="brakes">
+          <i class="fa-solid fa-compact-disc ml-1"></i> أقمشة وفرامل
+        </button>
+        <button onclick="setCategory('suspension')" class="category-btn px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="suspension">
+          <i class="fa-solid fa-arrows-up-down ml-1"></i> المساعدات والتعليق
+        </button>
+        <button onclick="setCategory('cooling')" class="category-btn px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="cooling">
+          <i class="fa-solid fa-snowflake ml-1"></i> التبريد والكمبروسرات
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full" id="products-section">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-black text-gray-900" id="sectionHeading">المنتجات المتاحة</h2>
+        <p class="text-xs sm:text-sm text-gray-500 mt-0.5">اختر قطع الغيار الأصلية المضمونة لسيارتك</p>
+      </div>
+      <div class="text-xs text-gray-500 font-semibold" id="productCountText">
+        عرض 8 منتجات
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="productsGrid"></div>
+
+    <!-- Empty State -->
+    <div id="noResultsState" class="hidden text-center py-16">
+      <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto text-gray-400 text-2xl mb-4">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-base font-bold text-gray-800">لم نتمكن من العثور على نتائج</h3>
+      <p class="text-xs text-gray-500 mt-1">جرب البحث برقم القطعة أو كلمة أخرى</p>
+      <button onclick="resetFilters()" class="mt-4 bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-full">
+        عرض جميع المنتجات
+      </button>
+    </div>
+  </main>
+
+  <!-- Product Detail Modal -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl animate-fade-in relative max-h-[90vh] flex flex-col">
+      <!-- Close Button -->
+      <button onclick="closeProductModal()" class="absolute top-3 left-3 z-10 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+
+      <div class="p-6 overflow-y-auto space-y-4">
+        <div class="h-48 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden relative">
+          <img id="modalImg" src="" alt="" class="max-h-full object-contain">
+          <span id="modalBadge" class="absolute top-2 right-2 text-[10px] font-bold px-2 py-1 rounded bg-brand-600 text-white"></span>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+            <span id="modalCategory" class="font-bold text-brand-600"></span>
+            <span>رقم القطعة: <strong id="modalOem" class="text-gray-800 font-mono"></strong></span>
+          </div>
+          <h3 id="modalTitle" class="text-lg font-black text-gray-900 leading-snug"></h3>
+        </div>
+
+        <div class="flex items-baseline gap-2">
+          <span id="modalPrice" class="text-2xl font-black text-brand-900"></span>
+          <span id="modalOldPrice" class="text-sm text-gray-400 line-through"></span>
+          <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">شامل الضريبة 15%</span>
+        </div>
+
+        <!-- Tamara & Tabby installment bar -->
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-600">أو قسّمها على 4 دفعات بقيمة <strong id="modalInstallment" class="text-brand-900"></strong> ريال/شهر</span>
+            <div class="flex gap-1">
+              <span class="badge-tabby text-[10px] font-black px-2 py-0.5 rounded">tabby</span>
+              <span class="badge-tamara text-[10px] font-black px-2 py-0.5 rounded">tamara</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compatibility & Specs -->
+        <div class="space-y-1.5 text-xs text-gray-600">
+          <div class="flex justify-between py-1 border-b border-gray-100">
+            <span class="text-gray-500">السيارات المتوافقة:</span>
+            <span id="modalCompatibility" class="font-bold text-gray-800"></span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-gray-100">
+            <span class="text-gray-500">بلد المنشأ / الجودة:</span>
+            <span id="modalOrigin" class="font-bold text-gray-800"></span>
+          </div>
+          <div class="flex justify-between py-1">
+            <span class="text-gray-500">حالة التوفر:</span>
+            <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-circle-check text-[10px]"></i> متوفر في مستودعاتنا</span>
+          </div>
+        </div>
+
+        <p id="modalDescription" class="text-xs text-gray-600 leading-relaxed bg-gray-50 p-3 rounded-lg"></p>
+      </div>
+
+      <div class="p-4 bg-gray-50 border-t border-gray-100 flex gap-3">
+        <button onclick="addToCartFromModal()" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-md transition">
+          <i class="fa-solid fa-cart-plus"></i> إضافة إلى السلة
+        </button>
+        <button onclick="orderViaWhatsAppDirect()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-3 rounded-xl text-sm flex items-center justify-center gap-1.5 shadow transition" title="طلب مباشر عبر واتساب">
+          <i class="fa-brands fa-whatsapp text-base"></i> طلب سريع
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer (Slide-over) -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+    <!-- Backdrop -->
+    <div onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+    
+    <div class="fixed inset-y-0 left-0 max-w-full flex">
+      <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+        <!-- Drawer Header -->
+        <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-bag-shopping text-brand-600 text-lg"></i>
+            <h3 class="font-black text-gray-900">سلة المشتريات</h3>
+            <span id="drawerCount" class="text-xs bg-brand-100 text-brand-800 font-bold px-2 py-0.5 rounded-full">0 عناصر</span>
+          </div>
+          <button onclick="toggleCartDrawer(false)" class="text-gray-400 hover:text-gray-700 p-1.5 rounded-lg">
+            <i class="fa-solid fa-xmark text-base"></i>
+          </button>
+        </div>
+
+        <!-- Free Shipping Progress -->
+        <div class="bg-brand-50 p-3 border-b border-brand-100 text-xs">
+          <div class="flex justify-between font-bold text-brand-900 mb-1">
+            <span id="shippingText">أضف منتجات بقيمة 300 ريال للشحن المجاني</span>
+            <span id="shippingPercentText">0%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+            <div id="shippingProgressBar" class="bg-brand-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Drawer Body: Cart Items -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-3" id="cartItemsList"></div>
+
+        <!-- Drawer Footer -->
+        <div class="p-4 border-t border-gray-100 bg-gray-50 space-y-3">
+          <div class="space-y-1.5 text-xs text-gray-600">
+            <div class="flex justify-between">
+              <span>المجموع الفرعي:</span>
+              <span id="subtotalPrice" class="font-bold text-gray-900">0.00 ر.س</span>
+            </div>
+            <div class="flex justify-between">
+              <span>قيمة الضريبة المضافة (15%):</span>
+              <span class="text-emerald-700 font-semibold">مشمولة في الأسعار</span>
+            </div>
+            <div class="flex justify-between text-sm font-black text-gray-900 pt-2 border-t border-gray-200">
+              <span>الإجمالي الكلي:</span>
+              <span id="totalPrice" class="text-brand-900 text-base">0.00 ر.س</span>
+            </div>
+          </div>
+
+          <button onclick="openCheckoutModal()" id="checkoutBtn" disabled class="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-brand-600/30 transition">
+            <i class="fa-solid fa-lock"></i> إتمام الطلب الآن
+          </button>
+          
+          <p class="text-[11px] text-center text-gray-400 flex items-center justify-center gap-1">
+            <i class="fa-solid fa-shield-check text-brand-500"></i> دفع آمن 100% ومشفر
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Confirmation Modal -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
+      <button onclick="closeCheckoutModal()" class="absolute top-3 left-3 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center mx-auto text-xl">
+          <i class="fa-solid fa-clipboard-check"></i>
+        </div>
+        <h3 class="text-lg font-black text-gray-900">بيانات التوصيل والطلب</h3>
+        <p class="text-xs text-gray-500">أدخل بياناتك وسيتم إرسال طلبك مباشرة لفريق درة السيارة</p>
+      </div>
+
+      <form onsubmit="submitOrder(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">الاسم الكامل *</label>
+          <input type="text" id="custName" required placeholder="مثال: يحيى الباشا" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">رقم الجوال (واتساب) *</label>
+          <input type="tel" id="custPhone" required placeholder="05xxxxxxxx" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">المدينة والحي *</label>
+          <input type="text" id="custCity" required placeholder="مثال: بريدة، حي النهضة" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">طريقة الدفع المفضلة</label>
+          <select id="custPayment" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 focus:ring-2 focus:ring-brand-500 focus:outline-none font-medium">
+            <option value="تابي / تمارا (أقساط)">تقسيط تابي أو تمارا (4 دفعات)</option>
+            <option value="مدى / أبل باي / فيزا">مدى / Apple Pay / فيزا</option>
+            <option value="تحويل بنكي / دفع عند الاستلام">تحويل بنكي / دفع عند الاستلام</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-md transition mt-2">
+          <i class="fa-brands fa-whatsapp text-lg"></i> إرسال وتأكيد الطلب عبر الواتساب
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 text-xs py-10 mt-auto border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <div class="space-y-3">
+        <div class="flex items-center gap-2 text-white font-black text-base">
+          <i class="fa-solid fa-car text-brand-500"></i> درة السيارة لقطع الغيار
+        </div>
+        <p class="leading-relaxed text-gray-400">
+          متجركم الموثوق في المملكة العربية السعودية لقطع غيار هيونداي وكيا والزيوت الأصلية (Hyundai XTeer). نضمن الجودة والسرعة في التوصيل.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">روابط سريعة</h4>
+        <ul class="space-y-2">
+          <li><a href="#products-section" class="hover:text-brand-400 transition">جميع المنتجات</a></li>
+          <li><a href="javascript:setCategory('oils')" class="hover:text-brand-400 transition">زيوت محركات XTeer</a></li>
+          <li><a href="javascript:setCategory('filters')" class="hover:text-brand-400 transition">فلاتر أصلية</a></li>
+          <li><a href="javascript:setCategory('brakes')" class="hover:text-brand-400 transition">أقمشة وفرامل</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">طرق الدفع والشحن</h4>
+        <div class="flex flex-wrap gap-2 text-xl text-gray-300">
+          <span class="bg-gray-800 px-2 py-1 rounded text-xs font-bold text-emerald-400">مدى Mada</span>
+          <span class="bg-gray-800 px-2 py-1 rounded text-xs font-bold text-white"><i class="fa-brands fa-apple"></i> Pay</span>
+          <span class="bg-gray-800 px-2 py-1 rounded text-xs font-bold text-teal-300">Tabby</span>
+          <span class="bg-gray-800 px-2 py-1 rounded text-xs font-bold text-orange-300">Tamara</span>
+        </div>
+        <p class="text-gray-400 mt-2 text-[11px]">شحن آمن وسريع عبر سمسا وأرامكس لجميع المدن</p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">تواصل معنا</h4>
+        <p class="text-gray-400 mb-1"><i class="fa-solid fa-location-dot text-brand-500 ml-1"></i> المملكة العربية السعودية - القصيم (بريدة)</p>
+        <p class="text-gray-400 mb-1"><i class="fa-solid fa-phone text-brand-500 ml-1"></i> خدمة العملاء: 966500000000+</p>
+        <p class="text-gray-400"><i class="fa-solid fa-envelope text-brand-500 ml-1"></i> info@doracars.com</p>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-4 border-t border-gray-800 text-center text-gray-500 text-[11px] flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>جميع الحقوق محفوظة © 2026 درة السيارة | تم التطوير بدقة بواسطة Green Arrow</span>
+      <span>السجل التجاري موثق في المركز السعودي للأعمال</span>
+    </div>
+  </footer>
+
+  <!-- Embedded Store Engine JavaScript -->
+  <script>
+    const productsDB = [
+      {
+        id: 1,
+        title: "زيت محرك هيونداي إكستير Hyundai XTeer 5W-30 بنزين تخليقي بالكامل (4 لتر)",
+        category: "oils",
+        categoryName: "زيوت المحركات",
+        price: 135.00,
+        oldPrice: 160.00,
+        oem: "1041002",
+        badge: "الأكثر مبيعاً",
+        compatibility: "هيونداي إلنترا، سوناتا، توسان، أكسنت، وكيا سبورتاج وسيراتو",
+        origin: "كوريا الجنوبية - أصلي 100%",
+        image: "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=500&auto=format&fit=crop&q=60",
+        description: "زيت محركات متطور عالي الأداء معتمد من هيونداي وكيا، يوفر حماية فائقة للمحرك ضد الاحتكاك والترسبات في درجات الحرارة العالية ويوفر في استهلاك الوقود."
+      },
+      {
+        id: 2,
+        title: "زيت محرك ديزل هيونداي إكستير XTeer Diesel Ultra 5W-30 (6 لتر)",
+        category: "oils",
+        categoryName: "زيوت المحركات",
+        price: 185.00,
+        oldPrice: 210.00,
+        oem: "1061011",
+        badge: "ديزل أصلي",
+        compatibility: "هيونداي سنتافي، ستاريا، إتش ون H1، وكيا سورينتو وكارنيفال",
+        origin: "كوريا الجنوبية - أصلي",
+        image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=500&auto=format&fit=crop&q=60",
+        description: "مخصص لمحركات الديزل الحديثة المزودة بفلاتر DPF وتيربو، يضمن نظافة المحرك وعمر تشغيلي أطول في ظروف القيادة الشاقة."
+      },
+      {
+        id: 3,
+        title: "فلتر زيت محرك أصلي هيونداي وكيا (Oil Filter)",
+        category: "filters",
+        categoryName: "الفلاتر",
+        price: 32.00,
+        oldPrice: 45.00,
+        oem: "26300-35505",
+        badge: "وكالة Mobis",
+        compatibility: "إلنترا، سوناتا، أكسنت، أزيرا، سيراتو، أوبتيما، سبورتاج",
+        origin: "هيونداي موبيس Mobis الأصلية",
+        image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=500&auto=format&fit=crop&q=60",
+        description: "فلتر زيت وكالة أصلي بصمام حماية ضد رجوع الزيت، يضمن تدفق الزيت النقي للمحرك ويزيل الشوائب الدقيقة بفاعلية."
+      },
+      {
+        id: 4,
+        title: "فلتر هواء محرك أصلي هيونداي إلنترا 2016 - 2023",
+        category: "filters",
+        categoryName: "الفلاتر",
+        price: 48.00,
+        oldPrice: 60.00,
+        oem: "28113-F2000",
+        badge: "أصلي",
+        compatibility: "هيونداي إلنترا 1.6 / 2.0 (2016-2023)",
+        origin: "هيونداي موبيس",
+        image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500&auto=format&fit=crop&q=60",
+        description: "فلتر هواء أصلي يحافظ على نقاء الهواء الداخل لغرفة الاحتراق ويزيد من عزم المحرك وكفاءة استهلاك الوقود."
+      },
+      {
+        id: 5,
+        title: "طقم أقمشة فرامل أمامية أصلية (فحمات فرامل) هيونداي سوناتا وكيا K5",
+        category: "brakes",
+        categoryName: "الفرامل والأقمشة",
+        price: 175.00,
+        oldPrice: 220.00,
+        oem: "58101-C1A00",
+        badge: "أداء فائق",
+        compatibility: "هيونداي سوناتا (2015-2022) / كيا K5 / أوبتيما",
+        origin: "كوري أصلي سيراميك معالج",
+        image: "https://images.unsplash.com/photo-1600790142055-619df03207e6?w=500&auto=format&fit=crop&q=60",
+        description: "أقمشة فرامل سيراميكية عالية الجودة توفر قوة توقف فورية بدون صوت صفير وتحافظ على عمر الهوبات."
+      },
+      {
+        id: 6,
+        title: "مساعدات أمامية أصلية (طقم يمين + يسار) هيونداي توسان وكيا سبورتاج",
+        category: "suspension",
+        categoryName: "المساعدات والتعليق",
+        price: 460.00,
+        oldPrice: 550.00,
+        oem: "54651-D3000",
+        badge: "ضمان سنة",
+        compatibility: "هيونداي توسان (2016-2021) / كيا سبورتاج",
+        origin: "موبيس Mobis كوريا",
+        image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500&auto=format&fit=crop&q=60",
+        description: "مساعدات هيدروليكية أصلية تمنح السيارة الثبات التام والراحة وامتصاص الصدمات في كافة الطرق."
+      },
+      {
+        id: 7,
+        title: "كمبروسر مكيف أصلي هيونداي أكسنت وكيا ريو (Compressor A/C)",
+        category: "cooling",
+        categoryName: "التبريد والتكييف",
+        price: 890.00,
+        oldPrice: 1050.00,
+        oem: "97701-1R100",
+        badge: "تبريد فائق",
+        compatibility: "هيونداي أكسنت (2012-2020) / كيا ريو",
+        origin: "Hanon Systems كوري وكالة",
+        image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=500&auto=format&fit=crop&q=60",
+        description: "كمبروسر تكييف وكالة أصلي يعطي أعلى كفاءة تبريد في أشد درجات حرارة الصيف مع صوت هادئ واستهلاك طاقة منخفض."
+      },
+      {
+        id: 8,
+        title: "رديتر ماء محرك أصلي هيونداي إلنترا 2017 - 2022",
+        category: "cooling",
+        categoryName: "التبريد والتكييف",
+        price: 340.00,
+        oldPrice: 410.00,
+        oem: "25310-F2000",
+        badge: "أصلي",
+        compatibility: "هيونداي إلنترا وسيراتو 1.6L و 2.0L",
+        origin: "ألمنيوم أصلي كوري",
+        image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=500&auto=format&fit=crop&q=60",
+        description: "رديتر تبريد ماء بمواصفات مطابقة للحرارة الخليجية يمنع ارتفاع حرارة المحرك تماماً."
+      }
+    ];
+
+    // State
+    let cart = JSON.parse(localStorage.getItem('dora_cart')) || [];
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let selectedModalProduct = null;
+
+    // Render Products Grid
+    function renderProducts() {
+      const grid = document.getElementById('productsGrid');
+      const emptyState = document.getElementById('noResultsState');
+      const countText = document.getElementById('productCountText');
+
+      const filtered = productsDB.filter(product => {
+        const matchesCategory = currentCategory === 'all' || product.category === currentCategory;
+        const matchesSearch = searchQuery === '' || 
+          product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.oem.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.compatibility.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+
+      countText.innerText = `عرض ${filtered.length} منتج`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.innerHTML = filtered.map(item => `
+        <div class="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          
+          <div>
+            <!-- Image & Badge -->
+            <div class="relative h-44 bg-gray-50 rounded-xl overflow-hidden mb-3.5 flex items-center justify-center cursor-pointer" onclick="openProductModal(${item.id})">
+              <img src="${item.image}" alt="${item.title}" class="max-h-full object-cover group-hover:scale-105 transition duration-300">
+              <span class="absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-600 text-white shadow-sm">
+                ${item.badge}
+              </span>
+              <button onclick="event.stopPropagation(); openProductModal(${item.id})" class="absolute bottom-2 left-2 bg-white/90 hover:bg-white text-gray-700 p-1.5 rounded-lg text-xs shadow opacity-0 group-hover:opacity-100 transition">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+
+            <!-- Meta & Title -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[11px] text-gray-400">
+                <span class="font-semibold text-brand-600">${item.categoryName}</span>
+                <span>OEM: <strong class="font-mono text-gray-600">${item.oem}</strong></span>
+              </div>
+              <h3 onclick="openProductModal(${item.id})" class="font-bold text-xs sm:text-sm text-gray-900 line-clamp-2 hover:text-brand-600 cursor-pointer transition leading-snug">
+                ${item.title}
+              </h3>
+              <p class="text-[11px] text-gray-500 truncate mt-1">
+                <i class="fa-solid fa-car text-[10px] text-gray-400"></i> ${item.compatibility}
+              </p>
+            </div>
+          </div>
+
+          <!-- Price & Add to Cart -->
+          <div class="mt-4 pt-3 border-t border-gray-100 space-y-2.5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-base sm:text-lg font-black text-brand-900">${item.price.toFixed(2)}</span>
+                <span class="text-xs font-bold text-gray-500">ر.س</span>
+              </div>
+              ${item.oldPrice ? `<span class="text-xs text-gray-400 line-through">${item.oldPrice.toFixed(2)} ر.س</span>` : ''}
+            </div>
+
+            <!-- Installment snippet -->
+            <div class="flex items-center justify-between text-[10px] text-gray-500 bg-gray-50 px-2 py-1 rounded">
+              <span>أو <strong>${(item.price / 4).toFixed(2)} ر.س</strong> / 4 دفعات</span>
+              <span class="font-bold text-teal-600">tabby</span>
+            </div>
+
+            <button onclick="addToCart(${item.id})" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95">
+              <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+            </button>
+          </div>
+
+        </div>
+      `).join('');
+    }
+
+    // Category Filtering
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        if (btn.dataset.category === cat) {
+          btn.className = 'category-btn active px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-brand-600 text-white shadow-sm';
+        } else {
+          btn.className = 'category-btn px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition bg-gray-100 text-gray-700 hover:bg-gray-200';
+        }
+      });
+      renderProducts();
+    }
+
+    // Search Filtering
+    function filterProducts() {
+      searchQuery = document.getElementById('searchInput').value;
+      renderProducts();
+    }
+
+    function syncAndFilter(val) {
+      searchQuery = val;
+      document.getElementById('searchInput').value = val;
+      renderProducts();
+    }
+
+    function resetFilters() {
+      searchQuery = '';
+      currentCategory = 'all';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('mobileSearchInput').value = '';
+      setCategory('all');
+    }
+
+    // Cart Management
+    function addToCart(productId) {
+      const product = productsDB.find(p => p.id === productId);
+      if (!product) return;
+
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      saveCart();
+      updateCartUI();
+      toggleCartDrawer(true);
+    }
+
+    function updateCartQuantity(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.id !== productId);
+      }
+
+      saveCart();
+      updateCartUI();
+    }
+
+    function removeCartItem(productId) {
+      cart = cart.filter(i => i.id !== productId);
+      saveCart();
+      updateCartUI();
+    }
+
+    function saveCart() {
+      localStorage.setItem('dora_cart', JSON.stringify(cart));
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      document.getElementById('cartCountBadge').innerText = totalCount;
+      document.getElementById('drawerCount').innerText = `${totalCount} عناصر`;
+      document.getElementById('subtotalPrice').innerText = `${subtotal.toFixed(2)} ر.س`;
+      document.getElementById('totalPrice').innerText = `${subtotal.toFixed(2)} ر.س`;
+      document.getElementById('checkoutBtn').disabled = cart.length === 0;
+
+      const freeShipThreshold = 300;
+      const progressPercent = Math.min(100, Math.round((subtotal / freeShipThreshold) * 100));
+      document.getElementById('shippingProgressBar').style.width = `${progressPercent}%`;
+      document.getElementById('shippingPercentText').innerText = `${progressPercent}%`;
+
+      const shipText = document.getElementById('shippingText');
+      if (subtotal >= freeShipThreshold) {
+        shipText.innerHTML = '<span class="text-emerald-700 font-bold"><i class="fa-solid fa-circle-check"></i> مبروك! حصلت على شحن مجاني لكافة مناطق المملكة</span>';
+      } else {
+        const remaining = (freeShipThreshold - subtotal).toFixed(2);
+        shipText.innerText = `أضف بقيمة ${remaining} ر.س إضافية للحصول على شحن مجاني`;
+      }
+
+      const cartContainer = document.getElementById('cartItemsList');
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `
+          <div class="text-center py-12 text-gray-400 space-y-2">
+            <i class="fa-solid fa-cart-arrow-down text-4xl text-gray-300"></i>
+            <p class="text-xs font-bold text-gray-600">سلتك فارغة حالياً</p>
+            <p class="text-[11px] text-gray-400">تصفح المنتجات وأضف ما تحتاجه لسيارتك</p>
+          </div>
+        `;
+        return;
+      }
+
+      cartContainer.innerHTML = cart.map(item => `
+        <div class="flex items-center gap-3 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+          <img src="${item.image}" alt="${item.title}" class="w-14 h-14 object-cover rounded-lg bg-white p-1 border border-gray-100 flex-shrink-0">
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-bold text-gray-900 truncate">${item.title}</h4>
+            <span class="text-[10px] text-gray-400 block">OEM: ${item.oem}</span>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-xs font-black text-brand-900">${(item.price * item.quantity).toFixed(2)} ر.س</span>
+              <div class="flex items-center gap-2 bg-white px-2 py-0.5 rounded-lg border border-gray-200 text-xs">
+                <button onclick="updateCartQuantity(${item.id}, -1)" class="text-gray-500 hover:text-red-500 px-1 font-bold">-</button>
+                <span class="font-bold text-gray-800">${item.quantity}</span>
+                <button onclick="updateCartQuantity(${item.id}, 1)" class="text-gray-500 hover:text-brand-600 px-1 font-bold">+</button>
+              </div>
+            </div>
+          </div>
+          <button onclick="removeCartItem(${item.id})" class="text-gray-400 hover:text-red-500 text-xs p-1" title="حذف">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById('cartDrawer');
+      if (open) {
+        drawer.classList.remove('hidden');
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+
+    // Modal Product Details
+    function openProductModal(productId) {
+      const p = productsDB.find(item => item.id === productId);
+      if (!p) return;
+
+      selectedModalProduct = p;
+      document.getElementById('modalImg').src = p.image;
+      document.getElementById('modalBadge').innerText = p.badge;
+      document.getElementById('modalCategory').innerText = p.categoryName;
+      document.getElementById('modalOem').innerText = p.oem;
+      document.getElementById('modalTitle').innerText = p.title;
+      document.getElementById('modalPrice').innerText = `${p.price.toFixed(2)} ر.س`;
+      document.getElementById('modalOldPrice').innerText = p.oldPrice ? `${p.oldPrice.toFixed(2)} ر.س` : '';
+      document.getElementById('modalInstallment').innerText = (p.price / 4).toFixed(2);
+      document.getElementById('modalCompatibility').innerText = p.compatibility;
+      document.getElementById('modalOrigin').innerText = p.origin;
+      document.getElementById('modalDescription').innerText = p.description;
+
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    function addToCartFromModal() {
+      if (selectedModalProduct) {
+        addToCart(selectedModalProduct.id);
+        closeProductModal();
+      }
+    }
+
+    function orderViaWhatsAppDirect() {
+      if (!selectedModalProduct) return;
+      const message = `مرحباً درة السيارة، أرغب في طلب المنتج التالي:%0A- *${selectedModalProduct.title}*%0A- رقم القطعة: ${selectedModalProduct.oem}%0A- السعر: ${selectedModalProduct.price} ر.س%0Aأرجو تزويدي بتفاصيل الشحن والتوصيل.`;
+      window.open(`https://wa.me/966500000000?text=${message}`, '_blank');
+    }
+
+    // Checkout Flow
+    function openCheckoutModal() {
+      toggleCartDrawer(false);
+      document.getElementById('checkoutModal').classList.remove('hidden');
+        function openCheckoutModal() {
+      toggleCartDrawer(false);
+      document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    function submitOrder(e) {
+      e.preventDefault();
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      const city = document.getElementById('custCity').value;
+      const payment = document.getElementById('custPayment').value;
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      let itemsSummary = cart.map((item, idx) => `${idx + 1}. ${item.title} (الكمية: ${item.quantity}) - ${(item.price * item.quantity).toFixed(2)} ر.س`).join('%0A');
+
+      const whatsappText = `*طلب جديد من متجر درة السيارة الإلكتروني*%0A%0A*بيانات العميل:*%0A- الاسم: ${name}%0A- الجوال: ${phone}%0A- العنوان: ${city}%0A- طريقة الدفع: ${payment}%0A%0A*المنتجات المطلوبة:*%0A${itemsSummary}%0A%0A*المجموع الكلي:* ${subtotal.toFixed(2)} ر.س`;
+
+      cart = [];
+      saveCart();
+      updateCartUI();
+      closeCheckoutModal();
+
+      window.open(`https://wa.me/966500000000?text=${whatsappText}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+      updateCartUI();
+    });
+  </script>
+</body>
+</html>
