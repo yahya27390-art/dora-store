@@ -31,7 +31,8 @@ function selectBrand(brand){
 }
 function searchQuery(){
  const type=$('input[name=type]:checked').value;
- const terms=[type==='engine'?'بطانة تحت المكينة':type==='wheel'?'بطانة كفر':'بطانة',modelSelect.value];
+ const modelTerm=modelSelect.value.split(' - ')[0];
+ const terms=[type==='engine'?'بطانة تحت المكينة':type==='wheel'?'بطانة كفر':'بطانة',modelTerm];
  if(yearSelect.value) terms.push(yearSelect.value);
  if(type==='wheel') terms.push($('#position').value,$('#side').value);
  return terms.filter(Boolean).join(' ');
