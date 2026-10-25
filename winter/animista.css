@@ -1,0 +1,39 @@
+/* Animista CSS animations, Copyright 2017 Ana Travas.
+ * Source: https://animista.net/ — FreeBSD license, see ANIMISTA-LICENSE.txt.
+ * fade-in-bottom, scale-in-center, puff-in-center and shadow-drop-2-center.
+ * Timings, selectors and shadow colour adapted for Dora Cars.
+ */
+@keyframes fade-in-bottom{0%{transform:translateY(50px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes scale-in-center{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes puff-in-center{0%{transform:scale(2);filter:blur(4px);opacity:0}100%{transform:scale(1);filter:blur(0);opacity:1}}
+@keyframes shadow-drop-2-center{0%{transform:translateZ(0);box-shadow:0 0 0 0 transparent}100%{transform:translateZ(50px);box-shadow:0 12px 30px 0 #183d6424}}
+.scroll-progress{position:fixed;top:0;right:0;width:100%;height:3px;z-index:99;pointer-events:none;background:linear-gradient(90deg,#88d7f8,#3262d9);transform:scaleX(0);transform-origin:right;will-change:transform}
+.scroll-ready:not(.is-visible){opacity:0;pointer-events:none}
+.scroll-ready.is-visible{animation:fade-in-bottom .75s cubic-bezier(.25,.46,.45,.94) var(--reveal-delay,0ms) both}
+.scroll-ready.is-visible.reveal-scale{animation-name:scale-in-center;animation-duration:.65s}
+.hero-copy .eyebrow{animation:fade-in-bottom .7s .1s both}
+.hero-copy h1{animation:fade-in-bottom .8s .2s both}
+.hero-copy>p{animation:fade-in-bottom .8s .35s both}
+.hero-copy>.primary{animation:fade-in-bottom .8s .5s both}
+.hero-car{animation:puff-in-center 1.1s cubic-bezier(.25,.46,.45,.94) both,float 5s 1.2s ease-in-out infinite}
+.car-back{animation-delay:.12s,1.3s}
+.model-card{animation:fade-in-bottom .45s cubic-bezier(.25,.46,.45,.94) both;animation-delay:var(--model-delay,0ms)}
+.branch-card:hover{animation:shadow-drop-2-center .3s both}
+.branch-card:hover .branch-icon{animation:scale-in-center .35s both}
+.type-options input:checked+span b{animation:scale-in-center .35s both}
+.feature-grid article{overflow:hidden}
+.part-art{height:245px;border-radius:12px;position:relative;background:radial-gradient(ellipse at center,#d4e6f6 0%,#edf4fb 45%,#f6f9fd 72%);margin-top:14px;isolation:isolate}
+.part-art:after{content:'';position:absolute;width:68%;height:18px;border-radius:50%;background:#19344b24;filter:blur(12px);bottom:18px;z-index:-1}
+.part-art img{height:225px;width:100%;max-width:100%;object-fit:contain;padding:4px;mix-blend-mode:normal;filter:drop-shadow(0 14px 13px #102b4830);animation:part-hover 6s ease-in-out infinite}
+.feature-grid article:hover .part-art img{transform:none}
+.part-caption{display:inline-block;color:#5c7694;font-size:9px;letter-spacing:1.3px;font-family:Arial,sans-serif;margin-top:13px}
+.illustration-note{font-size:9px;color:#8a98aa;margin-top:20px;text-align:center}
+.match-card .vin-art{height:259px}
+.match-card .vin-art b{top:155px}
+@keyframes part-hover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+body.paused .scroll-ready{opacity:1!important;transform:none!important;filter:none!important;animation:none!important;pointer-events:auto!important}
+body.paused .hero-copy *,body.paused .hero-car,body.paused .model-card{opacity:1!important;transform:none!important;filter:none!important;animation:none!important}
+body.paused *,body.paused *:before,body.paused *:after{animation:none!important;transition:none!important}
+html.motion-paused{scroll-behavior:auto}
+@media(max-width:700px){.scroll-ready.is-visible{animation-duration:.55s;--reveal-delay:0ms!important}.part-art{height:260px}.part-art img{height:245px}.match-card .vin-art{height:150px}.match-card .vin-art b{top:88px}.hero-car{animation-duration:.8s,6s}.scroll-progress{height:2px}}
+@media(prefers-reduced-motion:reduce){.scroll-ready{opacity:1!important;transform:none!important;filter:none!important;animation:none!important}.hero-copy *, .hero-car,.model-card{opacity:1!important;filter:none!important;transform:none!important;animation:none!important}.scroll-progress{display:none}}
