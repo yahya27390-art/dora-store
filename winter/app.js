@@ -43,6 +43,10 @@ function updateSearch(){
  $('#query-preview').textContent=modelSelect.value?searchQuery():'اختر الموديل لتجهيز رابط البحث';
 }
 document.querySelectorAll('[data-brand]').forEach(b=>b.addEventListener('click',()=>selectBrand(b.dataset.brand)));
+document.querySelectorAll('[data-start-brand]').forEach(b=>b.addEventListener('click',()=>{
+ selectBrand(b.dataset.startBrand);
+ $('#selection').scrollIntoView({behavior:document.body.classList.contains('paused')?'instant':'smooth',block:'start'});
+}));
 modelSelect.addEventListener('change',()=>selectModel(modelSelect.value));
 $('#search-form').addEventListener('change',updateSearch);
 $('#search-form').addEventListener('submit',e=>{

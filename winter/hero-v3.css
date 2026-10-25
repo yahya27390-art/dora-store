@@ -1,0 +1,33 @@
+/* Dora Cars winter campaign: grounded photographic hero. */
+.campaign-hero{position:relative;isolation:isolate;overflow:hidden;background:#08182a;color:#fff}
+.campaign-photo{position:absolute;inset:auto 0 0;aspect-ratio:2/1;z-index:-3;mask-image:linear-gradient(0deg,#000 80%,transparent 100%)}
+.campaign-photo img{width:100%;height:100%;display:block;object-fit:cover;object-position:left bottom}
+.campaign-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(270deg,#061526f5 0%,#081a2de0 26%,#091c304a 58%,#0718290d 78%),linear-gradient(0deg,#061526f5 0%,transparent 36%)}
+.campaign-inner{position:relative;min-height:610px;display:flex;align-items:center;justify-content:start;padding-block:58px 78px}
+.campaign-copy{width:49%;max-width:550px;position:relative;z-index:2}
+.campaign-season{display:inline-flex;gap:10px;align-items:center;color:#bed5e8;font-size:11px;letter-spacing:.2px}
+.campaign-season>span{color:#83cff4;font-size:17px}.campaign-season b{font:10px Arial,sans-serif;letter-spacing:1px;color:#7a95b0;padding-right:13px;margin-right:3px;border-right:1px solid #4e6c86}
+.campaign-copy h1{font-size:46px;line-height:1.65;font-weight:900;letter-spacing:-1.4px;margin:20px 0 16px;animation:fade-in-bottom .85s .1s both}
+.campaign-copy h1 span{color:#a6d9f4}
+.campaign-copy>p{font-size:13px;line-height:2.25;color:#b8cbdc;margin:0 0 28px;animation:fade-in-bottom .85s .2s both}
+.campaign-prompt{display:block;font-size:10px;font-weight:600;color:#7999b5;margin-bottom:10px}
+.campaign-actions{display:grid;grid-template-columns:1.1fr 1fr;gap:12px;max-width:420px;animation:fade-in-bottom .85s .3s both}
+.campaign-actions button{display:flex;align-items:center;justify-content:space-between;background:#edf6ff;color:#122e49;border:1px solid #dcecff;border-radius:9px;padding:13px 17px;text-align:right;min-height:71px;box-shadow:0 6px 20px #0002;transition:transform .25s,background .25s,box-shadow .25s}
+.campaign-actions button:last-child{background:#162f47b8;color:#e6f4ff;border-color:#6589a34d;backdrop-filter:blur(6px)}
+.campaign-actions button:hover{transform:translateY(-4px);background:#cce9ff;box-shadow:0 10px 25px #0004}
+.campaign-actions button:last-child:hover{background:#244d70}
+.campaign-actions b{font:800 17px Arial,sans-serif;letter-spacing:1.3px;display:block}
+.campaign-actions button:last-child b{font-size:22px;line-height:20px}
+.campaign-actions small{font-size:9px;display:block;opacity:.65;margin-top:3px}
+.campaign-actions i{font-style:normal;font-size:22px;color:#5a92be;transition:transform .25s}.campaign-actions button:hover i{transform:translate(-3px,3px)}
+.campaign-help{display:inline-block;font-size:10px;color:#829bb1;margin-top:20px}.campaign-help strong{color:#b6d8ef;font-weight:600;margin-right:4px}
+.campaign-image-note{position:absolute;left:34px;bottom:34px;font-size:10px;display:flex;align-items:center;gap:9px;color:#c4d8e7}
+.campaign-image-note i{height:5px;width:5px;background:#9ad4f2;border-radius:50%;box-shadow:0 0 13px #79caf5}
+.campaign-image-note small{font:8px Arial,sans-serif;letter-spacing:1.6px;color:#708da6;margin-right:8px}
+.campaign-rail{background:#071729a6;border-top:1px solid #aacde317;position:relative;z-index:2}.campaign-rail>.wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-block:20px;max-width:1020px}
+.campaign-rail span{font-size:11px;color:#a3bbcf;display:flex;align-items:center;gap:13px;white-space:nowrap}.campaign-rail b{font:11px Arial,sans-serif;color:#52718d}.campaign-rail i{height:1px;background:#89b4d020;width:80px}.campaign-rail em{font-style:normal;color:#78b4db}
+body.paused .campaign-copy *,body.paused .campaign-actions{animation:none!important;transform:none!important;opacity:1!important}
+@media(min-width:1500px){.campaign-inner{min-height:660px}.campaign-copy h1{font-size:52px}.campaign-photo img{object-position:center 65%}}
+@media(max-width:1000px) and (min-width:701px){.campaign-inner{min-height:570px;padding-block:45px 65px}.campaign-copy{width:50%}.campaign-copy h1{font-size:35px;letter-spacing:-1px}.campaign-copy>p{font-size:11px}.campaign-actions{gap:9px}.campaign-actions button{padding:11px 13px;min-height:67px}.campaign-actions b{font-size:15px}.campaign-photo img{object-position:48% center}.campaign-image-note small{display:none}}
+@media(max-width:700px){.campaign-inner{display:block;min-height:0;padding-top:34px;padding-bottom:0}.campaign-copy{width:100%;max-width:none}.campaign-season{font-size:9px;gap:8px}.campaign-season b{font-size:9px}.campaign-copy h1{font-size:33px;line-height:1.65;margin:14px 0 10px;letter-spacing:-1px}.campaign-copy>p{font-size:11px;line-height:2.1;margin-bottom:20px}.campaign-prompt{font-size:9px}.campaign-actions{max-width:none;gap:10px;grid-template-columns:1fr 1fr}.campaign-actions button{min-height:65px;padding:11px 15px}.campaign-actions b{font-size:16px}.campaign-actions button:last-child b{font-size:21px}.campaign-help{font-size:9px;margin-top:15px}.campaign-photo{position:relative;inset:auto;z-index:-1;height:265px;width:100%;margin-top:-10px}.campaign-photo img{object-fit:cover;object-position:15% 65%;height:100%}.campaign-hero{display:flex;flex-direction:column}.campaign-inner{order:0}.campaign-photo{order:1}.campaign-shade{background:linear-gradient(0deg,#071729 0%,transparent 20%,transparent 55%,#08182a 98%);top:auto;bottom:55px;height:290px;z-index:0;pointer-events:none}.campaign-image-note{display:none}.campaign-rail{order:2;background:#071729}.campaign-rail>.wrap{gap:8px;padding-block:14px}.campaign-rail span{font-size:8px;gap:6px}.campaign-rail b{font-size:8px}.campaign-rail i{width:13px;flex-shrink:0}.campaign-rail em{display:none}}
+@media(prefers-reduced-motion:reduce){.campaign-copy *, .campaign-actions{animation:none!important;opacity:1!important;transform:none!important}}
