@@ -25,11 +25,8 @@ html[lang=en] .hero-track .hero .hero-art{
 }
 .hero-track .hero::after{content:none}
 .hero-track .hero-copy{
-  width:min(100%,780px);align-self:center;justify-self:end;padding:40px clamp(28px,6vw,100px) 76px;
+  width:min(100%,780px);align-self:center;justify-self:start;padding:40px clamp(28px,6vw,100px) 76px;
   transform:translate3d(0,var(--copy-y),0);animation:none;
-}
-html[lang=en] .hero-track .hero-copy{
-  justify-self:start;
 }
 .hero-heading-mask{display:block;overflow:hidden;padding-block-end:.12em}
 .hero-track h1{font-size:clamp(38px,5vw,80px);letter-spacing:normal;line-height:1.14;white-space:nowrap}
