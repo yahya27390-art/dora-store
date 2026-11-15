@@ -1,8 +1,8 @@
 :root{color-scheme:dark;--navy:#050f2c;--bg:#090e18;--surface:#121b2b;--line:#2a374b;--ink:#f7f4ee;--muted:#b8c4d5;--copper:#e7b489}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 70% 0,#13223c 0,transparent 50rem),var(--bg);color:var(--ink);font:500 16px/1.6 Cairo,Tahoma,sans-serif}
 a{color:inherit;text-decoration:none}button{font:inherit;color:inherit}svg{width:22px;height:22px;flex:none}a:focus-visible,button:focus-visible{outline:2px solid var(--copper);outline-offset:4px}
-.wrap{width:min(1160px,calc(100% - 64px));margin-inline:auto}
-.top{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:10px;line-height:1.25;font-weight:800;white-space:nowrap}.brand img{background:#fff;object-fit:contain}.brand small{display:block;direction:ltr;text-align:right;color:var(--muted);font:700 9px/1.7 Arial,sans-serif;letter-spacing:.17em}
+.wrap{width:min(1240px,calc(100% - 48px));margin-inline:auto}
+.top{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;width:min(1520px,calc(100% - 48px));margin-inline:auto}.brand{display:flex;align-items:center;gap:10px;line-height:1.25;font-weight:800;white-space:nowrap}.brand img{background:#fff;object-fit:contain}.brand small{display:block;direction:ltr;text-align:right;color:var(--muted);font:700 9px/1.7 Arial,sans-serif;letter-spacing:.17em}
 nav{display:flex;gap:28px;font-size:14px;color:var(--muted)}nav a:hover,footer a:hover{color:var(--copper)}.share{padding:8px 13px;display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;cursor:pointer;font-size:13px}.share svg{width:17px;height:17px}[hidden]{display:none!important}
 .hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:442px;overflow:hidden;background:#090f1d}
 .hero-art{position:absolute;z-index:-1;inset:0;background:linear-gradient(270deg,#0c1528 5%,#0c1528 23%,#0c1528e8 37%,#0c15282b 68%,transparent),url('./turbo.jpg') left 47%/72% auto no-repeat,radial-gradient(ellipse at 22% 46%,#2c3a4f,#111625 60%)}
